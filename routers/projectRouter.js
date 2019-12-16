@@ -1,6 +1,6 @@
 const express = require("express");
 const projects = require("../data/helpers/projectModel");
-const { validateProject } = require("../middleware/validate");
+const { validateProject, validateProjectID } = require("../middleware/validate");
 
 const router = express.Router();
 
@@ -25,6 +25,17 @@ router.post('/', validateProject(),  (req, res) => {
         .catch((error) => {
             next(error)
         })
-});
+})
+
+router.put("/:id", validateProjectID(), validateProject(), (req, res) => {
+    projects
+        .update(req.project.id, req.body)
+        .then(project => {
+            res.status(200).json(project)
+        })
+        .catch(error => {
+            next(error)
+        })
+  })
 
 module.exports = router;
