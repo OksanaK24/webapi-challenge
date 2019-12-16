@@ -39,4 +39,15 @@ router.put("/:id", validateProjectIDAct(), validateAction(), validateActionID(),
         })
 })
 
+router.delete("/:id", validateProjectIDAct(), validateActionID(), (req, res) => {
+    actions
+        .remove(req.action.id)
+        .then(() => {
+            res.status(200).json({ message: "The action has been removed" })
+        })
+        .catch(error => {
+            next(error)
+        })
+})
+
 module.exports = router;
