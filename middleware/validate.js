@@ -32,9 +32,24 @@ function validateProjectID() {
         })
     }
 }
+
+function validateAction() {
+  
+    return (req, res, next) => {
+
+        const { project_id, description, notes } = req.body;
+
+        if (!project_id || !description || !notes) {
+            res.status(400).json({ errorMessage: "Please provide project_id, description and notes for the project." })
+        }
+
+        next()
+    }
+}
   
 
 module.exports = {
     validateProject,
     validateProjectID,
+    validateAction,
 }
