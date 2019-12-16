@@ -1,10 +1,10 @@
 const express = require("express");
 const actions = require("../data/helpers/actionModel");
-const { validateProjectID, validateAction } = require("../middleware/validate");
+const { validateProjectIDAct, validateAction, validateActionID } = require("../middleware/validate");
 
 const router = express.Router();
 
-router.get('/', validateProjectID(), (req, res) => {
+router.get('/', validateProjectIDAct(), (req, res) => {
     actions
         .get()
         .then(action => {
@@ -16,7 +16,7 @@ router.get('/', validateProjectID(), (req, res) => {
         })
 })
 
-router.post('/', validateProjectID(), validateAction(), (req, res) => {
+router.post('/', validateProjectIDAct(), validateAction(), (req, res) => {
     console.log(req.body)
     actions
         .insert(req.body)
@@ -24,6 +24,17 @@ router.post('/', validateProjectID(), validateAction(), (req, res) => {
             res.status(201).json(action)
         })
         .catch((error) => {
+            next(error)
+        })
+})
+
+router.put("/:id", validateProjectIDAct(), validateAction(), validateActionID(), (req, res) => {
+    actions
+        .update(req.action.id, req.body)
+        .then(project => {
+            res.status(200).json(project)
+        })
+        .catch(error => {
             next(error)
         })
 })
