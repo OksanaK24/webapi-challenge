@@ -34,32 +34,14 @@ function validateProjectID() {
     }
 }
 
-function validateProjectIDAct() {
-    return (req, res, next) => {
-      projects.get(req.params.project_id)
-        .then(project => {
-          if (project) {
-            req.project = project
-            next()
-          } else {
-            res.status(404).json({ message: "Project not found" })
-          }
-        })
-        .catch(error => {
-          res.status(500).json({
-            message: "Error retrieving the project",
-          })
-        })
-    }
-}
 
 function validateAction() {
   
     return (req, res, next) => {
 
-        const { project_id, description, notes } = req.body;
+        const {  description, notes } = req.body;
 
-        if (!project_id || !description || !notes) {
+        if ( !description || !notes) {
             res.status(400).json({ errorMessage: "Please provide project_id, description and notes for the project." })
         }
 
@@ -69,7 +51,7 @@ function validateAction() {
 
 function validateActionID() {
     return (req, res, next) => {
-      actions.get(req.params.id)
+      actions.get(req.params.action_id)
         .then(action => {
           if (action) {
             req.action = action
@@ -92,5 +74,5 @@ module.exports = {
     validateProjectID,
     validateAction,
     validateActionID,
-    validateProjectIDAct,
+    // validateProjectIDAct,
 }

@@ -14,7 +14,7 @@ server.get("/", (req, res) => {
   })
 
 server.use("/api/projects", projectRouter);
-server.use("/api/projects/:project_id/actions", actionRouter);
+server.use("/api/projects/:id/actions", actionRouter);
 
 server.use((req, res) => {
 	res.status(404).json({

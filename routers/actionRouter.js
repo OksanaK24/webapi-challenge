@@ -1,14 +1,14 @@
 const express = require("express");
 const actions = require("../data/helpers/actionModel");
-const { validateProjectIDAct, validateAction, validateActionID } = require("../middleware/validate");
+const { validateProjectID, validateAction, validateActionID } = require("../middleware/validate");
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/', validateProjectIDAct(), (req, res) => {
+router.get("/", validateProjectID(), (req, res) => {
     actions
-        .get()
+        .get(req.project.id)
         .then(action => {
-            console.log(action)
+            // console.log(action)
             res.status(200).json(action)
         })
         .catch((error) => {
@@ -16,10 +16,15 @@ router.get('/', validateProjectIDAct(), (req, res) => {
         })
 })
 
-router.post('/', validateProjectIDAct(), validateAction(), (req, res) => {
-    console.log(req.body)
+router.post("/", validateProjectID(), validateAction(), (req, res) => {
+    console.log(req.body);
+    newAction ={
+        project_id: req.params.id,
+        description: req.body.description,
+        notes: req.body.notes
+    }
     actions
-        .insert(req.body)
+        .insert(newAction)
         .then(action => {
             res.status(201).json(action)
         })
@@ -28,9 +33,15 @@ router.post('/', validateProjectIDAct(), validateAction(), (req, res) => {
         })
 })
 
-router.put("/:id", validateProjectIDAct(), validateAction(), validateActionID(), (req, res) => {
+router.put("/:action_id", validateProjectID(), validateAction(), validateActionID(), (req, res) => {
+    editedAction ={
+        project_id: req.params.id,
+        description: req.body.description,
+        notes: req.body.notes
+    }
+
     actions
-        .update(req.action.id, req.body)
+        .update(req.params.action_id, editedAction)
         .then(project => {
             res.status(200).json(project)
         })
@@ -39,9 +50,9 @@ router.put("/:id", validateProjectIDAct(), validateAction(), validateActionID(),
         })
 })
 
-router.delete("/:id", validateProjectIDAct(), validateActionID(), (req, res) => {
+router.delete("/:action_id", validateProjectID(), validateActionID(), (req, res) => {
     actions
-        .remove(req.action.id)
+        .remove(req.params.action_id)
         .then(() => {
             res.status(200).json({ message: "The action has been removed" })
         })

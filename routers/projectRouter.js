@@ -4,7 +4,7 @@ const { validateProject, validateProjectID } = require("../middleware/validate")
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
     projects
         .get()
         .then(project => {
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
         })
   })
 
-router.post('/', validateProject(),  (req, res) => {
+router.post("/", validateProject(),  (req, res) => {
     console.log(req.body)
     projects
         .insert(req.body)
@@ -49,7 +49,7 @@ router.delete("/:id", validateProjectID(), (req, res) => {
         })
 })
 
-router.get('/:id/actionsN', validateProjectID(), (req, res) => {
+router.get("/:id/actionsN", validateProjectID(), (req, res) => {
     projects
         .getProjectActions(req.project.id)
         .then(action => {
