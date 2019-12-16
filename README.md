@@ -38,15 +38,32 @@ Commit your code regularly and use descriptive messages. This helps both you (in
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
 
-- [ ] Mention two parts of Express that you learned about this week.
+- [X] Mention two parts of Express that you learned about this week.
 
-- [ ] Describe Middleware?
+1. Server-side routing
+2. Middleware
 
-- [ ] Describe a Resource?
 
-- [ ] What can the API return to help clients know if a request was successful?
+- [X] Describe Middleware?
 
-- [ ] How can we partition our application into sub-applications?
+Middleware it’s a function that kind of interrupts user’s request with some changes, information etc. We use it with next(). We can use it for example for login - if user is logged in he can go next() and see certain info, if no he’ll be redirected. 
+
+
+- [X] Describe a Resource?
+
+Resource - it’s information/data in our database. You can reach and modify them via specific API request.
+
+
+- [X] What can the API return to help clients know if a request was successful?
+
+It can return successful status code response (200, 201 etc); it can return some specifically created message for the successful code; it can return created or updated ( in case of put or post request) file; etc.
+
+
+- [X] How can we partition our application into sub-applications?
+
+We can make it with Express Routers. The same as with Components in front end. Thanks to that Express Routers it’s easier to write and understand code and much harder to be lost in it. 
+
+
 
 ## Minimum Viable Product
 
