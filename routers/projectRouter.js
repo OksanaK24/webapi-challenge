@@ -49,7 +49,7 @@ router.delete("/:id", validateProjectID(), (req, res) => {
         })
 })
 
-router.get('/:id/actions', validateProjectID(), (req, res) => {
+router.get('/:id/actionsN', validateProjectID(), (req, res) => {
     projects
         .getProjectActions(req.project.id)
         .then(action => {

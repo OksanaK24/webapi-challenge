@@ -1,6 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const projectRouter = require("./routers/projectRouter");
+const actionRouter = require("./routers/actionRouter");
 
 const server = express()
 
@@ -12,7 +13,8 @@ server.get("/", (req, res) => {
     res.send("<h2>Welcome to this Sprint</h2>")
   })
 
-server.use("/api/projects", projectRouter)
+server.use("/api/projects", projectRouter);
+server.use("/api/projects/:id/actions", actionRouter);
 
 server.use((req, res) => {
 	res.status(404).json({
