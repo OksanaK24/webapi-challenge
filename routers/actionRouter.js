@@ -2,7 +2,7 @@ const express = require("express");
 const actions = require("../data/helpers/actionModel");
 const { validateProjectIDAct, validateAction, validateActionID } = require("../middleware/validate");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.get('/', validateProjectIDAct(), (req, res) => {
     actions
